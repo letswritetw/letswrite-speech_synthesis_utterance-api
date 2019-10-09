@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>SpeechSynthesisUtterance 讓瀏覽器說話 - Augustus - Let's Write</title>
+    <link rel="canonical" href="https://auguston.github.io/letswrite-speech_synthesis_utterance-api/"/>
+    <meta property="og:url" content="https://auguston.github.io/letswrite-speech_synthesis_utterance-api/"/>
+    <meta property="fb:app_id" content="2435108729902508"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Let's Write"/>
+    <meta property="og:title" content="SpeechSynthesisUtterance 讓瀏覽器說話 - Augustus - Let's Write"/>
+    <meta itemprop="name" content="SpeechSynthesisUtterance 讓瀏覽器說話 - Augustus - Let's Write"/>
+    <meta name="description" content="文章大綱"/>
+    <meta property="og:description" content="文章大綱"/>
+    <meta itemprop="description" content="文章大綱"/>
+    <meta itemprop="image" content="https://auguston.github.io/letswrite-speech_synthesis_utterance-api/fb.jpg"/>
+    <meta property="og:image" content="https://auguston.github.io/letswrite-speech_synthesis_utterance-api/fb.jpg"/>
+    <link rel="shortcut icon" href="https://i0.wp.com/letswrite.tw/wp-content/uploads/2019/07/cropped-letswrite512-1.jpg"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+    <link rel="stylesheet" href="dist/vendor/material-kit.min.css?v=2.0.6"/>
+    <link rel="stylesheet" href="dist/style.min.css"/>
+    <style>
+      body {
+        background: #F5F5F5;
+      }
+      
+    </style>
+    <!-- Google Tag Manager-->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PGQ9WQT');
+      
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript)-->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGQ9WQT" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <div class="container" id="app">
+      <div class="row text-center">
+        <div class="col">
+          <h1 class="h2">SpeechSynthesisUtterance 讓瀏覽器說話</h1>
+          <h5>筆記文：<a class="text-info" href="" target="_blank">Let's Write</a></h5>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <!-- 左側主要功能-->
+        <main class="col-md-7">
+          <section class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-text card-header-info">
+                  <div class="card-text">
+                    <h2 class="card-title">範例一：字典</h2>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p>點選下列字即可發音（僅支援中文語音）</p>
+                  <div class="dictionary"><a class="btn btn-default" v-for="n in dictionary" href="#" @click.prevent="sound(n)">{{ n }}</a></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-text card-header-info">
+                  <div class="card-text">
+                    <h2 class="card-title">範例二：輸入框</h2>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p>輸入框裡輸入文字即可發音</p>
+                  <div class="textarea">
+                    <div class="form-group has-info">
+                      <textarea class="form-control" id="textarea" rows="5" v-model="textarea"></textarea>
+                    </div>
+                    <div class="text-center"><a class="btn btn-rose m-0 pr-5 pl-5" href="#" @click.prevent="sound(textarea)">講話</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <!-- 右側控製選單-->
+        <aside class="col-md-5">
+          <section class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-text card-header-success">
+                  <div class="card-text">
+                    <h2 class="card-title">控製項目</h2>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p>調整下列項目，即可改變發音</p>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p class="badge badge-pill badge-default">速度</p>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="slider slider-info" id="speedSlider" ref="speed"></div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="option"><small>{{ speed }}</small></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p class="badge badge-pill badge-default">聲調</p>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="slider slider-info" id="pitchSlider" ref="pitch"></div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="option"><small>{{ pitch }}</small></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p class="badge badge-pill badge-default">音量</p>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="slider slider-info" id="volumeSlider" ref="volume"></div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="option"><small>{{ volume }}</small></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <p class="badge badge-pill badge-default">語音</p>
+                    </div>
+                    <div class="col-md-9">
+                      <select class="form-control has-info" v-model="voice">
+                        <option>請選擇語音</option>
+                        <option v-for="v in voices" :value="v.name">{{ v.name }}（{{ v.lang }}）</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="dist/vendor/popper.min.js"></script>
+    <script src="dist/vendor/bootstrap-material-design.min.js"></script>
+    <script src="dist/vendor/nouislider.min.js"></script>
+    <script src="dist/vendor/material-kit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.6.0/polyfill.min.js"></script>
+    <script src="dist/main.min.js"></script>
+  </body>
+</html>
