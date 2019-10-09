@@ -36,16 +36,6 @@ new Vue({
   },
 	mounted() {
     const _this = this;
-    var items = [
-      {
-        name: '字數統計',
-        url: 'https://auguston.github.io/text-counter/'
-      },
-      {
-        name: '瀏覽器說話',
-        url: 'https://auguston.github.io/medium-speech_synthesis_utterance-api/'
-      }
-    ];
     
     // 載入 window.speechSynthesis.getVoices() 的問題參考：
     // https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
