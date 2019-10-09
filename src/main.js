@@ -46,14 +46,7 @@ new Vue({
         url: 'https://auguston.github.io/medium-speech_synthesis_utterance-api/'
       }
     ];
-    var ul = '<ul class="js-append-links" style="display: flex; justify-content: center; list-style: none;"></ul>';
-    var body = document.querySelector('body');
-    body.insertAdjacentHTML('beforeend', ul);
-    var jsUl = document.querySelector('.js-append-links');
-    Array.prototype.forEach.call(items, item => {
-      var li = '<li><a href="' + item.url + '" target="_blank" style="display: block; padding-right: 8px; padding: 8px; font-size: 14px; color: #424242;">' + item.name + '</a></li>'
-      jsUl.insertAdjacentHTML('beforeend', li);
-    });
+    
     // 載入 window.speechSynthesis.getVoices() 的問題參考：
     // https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
     function setVoices() {
