@@ -2,4 +2,4 @@
 
 Demo：[demo](https://letswritetw.github.io/letswrite-speech_synthesis_utterance-api/)
 
-筆記文：[Let's Write](https://letswrite.tw/speech-synthesis-utterance/)
+筆記文：[Let's Write](https://www.letswrite.tw/speech-synthesis-utterance/)
